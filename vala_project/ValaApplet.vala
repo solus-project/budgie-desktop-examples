@@ -39,6 +39,12 @@ public class ValaAppletExample : GLib.Object, Budgie.Plugin {
  */
 public class ValaApplet : Budgie.Applet
 {
+    Gtk.Popover? my_popover = null;
+    Gtk.EventBox? box = null;
+
+    /* Use this to register popovers with the panel system */
+    unowned Budgie.PopoverManager? manager = null;
+
     public ValaApplet(string uuid)
     {
         /*
@@ -49,8 +55,35 @@ public class ValaApplet : Budgie.Applet
         var settings = this.get_applet_settings(uuid); */
         Object();
 
+        box = new Gtk.EventBox();
+        add(box);
         var label = new Gtk.Label("I am Groot");
-        add(label);
+        box.add(label);
+
+        /* Hook up a popover to the event box to catch clicks! */
+        my_popover = new Gtk.Popover(box);
+        var lab = new Gtk.Label("<span size='x-large'>Seriously, Groot!</span>");
+        lab.use_markup = true;
+        my_popover.add(lab);
+        lab.margin = 20;
+        lab.show_all();
+
+        box.button_press_event.connect((e)=> {
+            /* Not primary button? Good bye! */
+            if (e.button != 1) {
+                return Gdk.EVENT_PROPAGATE;
+            }
+            /* Hide if already showing */
+            if (my_popover.get_visible()) {
+                my_popover.hide();
+            } else {
+                /* Not showing, so show it.. */
+                this.manager.show_popover(box);
+            }
+            return Gdk.EVENT_STOP;
+        });
+
+
         show_all();
     }
 
@@ -68,6 +101,15 @@ public class ValaApplet : Budgie.Applet
     public override Gtk.Widget? get_settings_ui()
     {
         return new ValaAppletSettings();
+    }
+
+    /**
+     * When using popovers, always register them in the entry method
+     */
+    public override void update_popovers(Budgie.PopoverManager? manager)
+    {
+        manager.register_popover(this.box, this.my_popover);
+        this.manager = manager;
     }
 }
 
