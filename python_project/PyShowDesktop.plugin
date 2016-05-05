@@ -1,0 +1,9 @@
+[Plugin]
+Loader=python
+Module=pyshowdesktop
+Name=Python Sample Applet
+Description=Python Sample Applet
+Authors=Ikey Doherty
+Copyright=Copyright © 2016 Ikey Doherty
+Website=https://solus-project.com
+Icon=user-desktop-symbolic
