@@ -23,6 +23,7 @@ PKG_CHECK_MODULES(BUDGIE_PLUGIN,
 AM_PROG_VALAC([0.28], [], [AC_MSG_ERROR([valac is required to build Vala applets])])
 
 AC_CONFIG_FILES([Makefile
+                 c_project/Makefile
                  python_project/Makefile
                  vala_project/Makefile])
 

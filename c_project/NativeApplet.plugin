@@ -1,0 +1,8 @@
+[Plugin]
+Module=nativeexampleapplet.so
+Name=Native Sample Applet
+Description=Native Sample Applet
+Authors=Ikey Doherty
+Copyright=Copyright © 2016 Ikey Doherty
+Website=https://solus-project.com
+Icon=user-home-symbolic
