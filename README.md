@@ -8,6 +8,6 @@ Sample material for constructing extensions/applets for the Budgie Desktop.
 TODO
 -----
 
- - [ ] Add Python example
+ - [x] Add Python example
  - [ ] Add Vala example
  - [ ] Add C example
