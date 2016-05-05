@@ -34,7 +34,7 @@ class PyShowDesktop(GObject.GObject, Budgie.Plugin):
     __gtype_name__ = "PyShowDesktop"
 
     def __init__(self):
-        """ Initialisation is important. This _must_ be Budgie.Plugin
+        """ Initialisation is important.
         """
         GObject.Object.__init__(self)
 
@@ -48,9 +48,32 @@ class PyShowDesktop(GObject.GObject, Budgie.Plugin):
 class PyShowDesktopApplet(Budgie.Applet):
     """ Budgie.Applet is in fact a Gtk.Bin """
 
+    wn_screen = None
+    button = None
+
     def __init__(self, uuid):
         Budgie.Applet.__init__(self)
-        label = Gtk.Label("Hullo, world")
 
-        self.add(label)
+        # Add a button to our UI
+        self.button = Gtk.ToggleButton.new()
+        self.button.set_relief(Gtk.ReliefStyle.NONE)
+        self.button.set_active(False)
+        self.add(self.button)
+        self.wn_screen = Wnck.Screen.get_default()
+
+        img = Gtk.Image.new_from_icon_name("user-desktop-symbolic", Gtk.IconSize.BUTTON)
+        self.button.add(img)
+        self.button.set_tooltip_text("Toggle the desktop (from Python!)")
         self.show_all()
+
+        # Hook up Wnck signals
+        self.wn_screen.connect_after('showing-desktop-changed', self.scr_changed)
+        self.button.connect_after('clicked', self.on_clicked)
+
+    def scr_changed(self, wscr, udata=None):
+        """ WnckScreen changed, update button """
+        self.button.set_active(self.wn_screen.get_showing_desktop())
+
+    def on_clicked(self, widg, data=None):
+        """ User clicked our button, update WnckScreen """
+        self.wn_screen.toggle_showing_desktop(self.button.get_active())
