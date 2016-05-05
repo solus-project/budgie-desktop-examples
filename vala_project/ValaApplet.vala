@@ -45,6 +45,37 @@ public class ValaApplet : Budgie.Applet
 
         var label = new Gtk.Label("I am Groot");
         add(label);
+        show_all();
+    }
+
+    /**
+     * Let the panel manager know we support a settings UI
+     */
+    public override bool supports_settings() {
+        return true;
+    }
+
+    /**
+     * Worth pointing out this is destroyed each time the user navigates
+     * away from the view.
+     */
+    public override Gtk.Widget? get_settings_ui()
+    {
+        return new ValaAppletSettings();
+    }
+}
+
+/**
+ * You can go further with this, but this is how we provide settings UIs for
+ * the applet inside of Raven.
+ */
+public class ValaAppletSettings : Gtk.Box
+{
+    public ValaAppletSettings()
+    {
+        var label = new Gtk.Label("I am still Groot.");
+        add(label);
+        show_all();
     }
 }
 
