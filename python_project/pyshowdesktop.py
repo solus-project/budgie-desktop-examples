@@ -23,7 +23,7 @@
 import gi.repository
 gi.require_version('Budgie', '1.0')
 gi.require_version('Wnck', '3.0')
-from gi.repository import Budgie, GObject, Wnck
+from gi.repository import Budgie, GObject, Wnck, Gtk
 
 class PyShowDesktop(GObject.GObject, Budgie.Plugin):
     """ This is simply an entry point into your Budgie Applet implementation.
@@ -36,7 +36,7 @@ class PyShowDesktop(GObject.GObject, Budgie.Plugin):
     def __init__(self):
         """ Initialisation is important. This _must_ be Budgie.Plugin
         """
-        Budgie.Plugin.__init__(self)
+        GObject.Object.__init__(self)
 
     def do_get_panel_widget(self, uuid):
         """ This is where the real fun happens. Return a new Budgie.Applet
