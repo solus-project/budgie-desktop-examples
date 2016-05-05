@@ -41,6 +41,12 @@ public class ValaApplet : Budgie.Applet
 {
     public ValaApplet(string uuid)
     {
+        /*
+         * How to use relocatable schemas:
+         *
+        Object(settings_prefix = "/com/myawesome/applet/instance/awesome",
+               settings_schema = "com.myawesome.applet");
+        var settings = this.get_applet_settings(uuid); */
         Object();
 
         var label = new Gtk.Label("I am Groot");
