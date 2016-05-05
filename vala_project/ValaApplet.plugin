@@ -1,0 +1,8 @@
+[Plugin]
+Module=valaexampleapplet.so
+Name=Vala Sample Applet
+Description=Vala Sample Applet
+Authors=Ikey Doherty
+Copyright=Copyright © 2016 Ikey Doherty
+Website=https://solus-project.com
+Icon=user-home-symbolic

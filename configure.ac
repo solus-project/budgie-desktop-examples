@@ -19,8 +19,12 @@ PKG_CHECK_MODULES(BUDGIE_PLUGIN,
         budgie-1.0 >= budgie_required_version
 )
 
+# Required only for Vala applets.
+AM_PROG_VALAC([0.28], [], [AC_MSG_ERROR([valac is required to build Vala applets])])
+
 AC_CONFIG_FILES([Makefile
-                 python_project/Makefile])
+                 python_project/Makefile
+                 vala_project/Makefile])
 
 AC_OUTPUT
 
