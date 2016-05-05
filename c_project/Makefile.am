@@ -8,7 +8,9 @@ nativeapplet_LTLIBRARIES = \
 	libnativeexampleapplet.la
 
 libnativeexampleapplet_la_SOURCES = \
-	NativeApplet.c
+	NativeApplet.c \
+	NativeApplet.h \
+	NativePanelApplet.c
 
 libnativeexampleapplet_la_CFLAGS = \
 	$(BUDGIE_PLUGIN_CFLAGS) \

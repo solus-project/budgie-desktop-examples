@@ -23,7 +23,7 @@
 #include <budgie-desktop/plugin.h>
 #include <gobject/gobject.h>
 
-#define __budgie_unused__ __attribute__ ((unused))
+#include "NativeApplet.h"
 
 G_BEGIN_DECLS
 
@@ -36,19 +36,25 @@ G_DECLARE_FINAL_TYPE(NativeApplet, native_applet, NATIVE, APPLET, GObject)
 G_END_DECLS
 
 /**
+ * Found in NativePanelApplet.c
+ */
+extern void native_panel_applet_register_type(GTypeModule *module);
+
+/**
  * This is apparently our instance
  */
 struct _NativeApplet
 {
-        int __unused0;
+        GObject parent;
 };
 
 /**
  * Return a new panel widget
  */
-static GtkWidget *native_applet_get_panel_widget(__budgie_unused__ const char *uuid)
+static BudgieApplet *native_applet_get_panel_widget(__budgie_unused__ BudgiePlugin *self,
+                                                    __budgie_unused__ gchar *uuid)
 {
-        return NULL;
+        return native_panel_applet_new();
 }
 
 /**
@@ -85,12 +91,15 @@ G_DEFINE_DYNAMIC_TYPE_EXTENDED(NativeApplet, native_applet, G_TYPE_OBJECT,
                                                                  native_applet_iface_init))
 
 /**
- * Export the types back to peas
+ * Export the types back to peas. Note how we extern'd the function above
+ * to make use of native_panel_applet_register_type, ensuring everything is
+ * exported to the type system.
  */
 G_MODULE_EXPORT void
-peas_register_type(PeasObjectModule *module)
+peas_register_types(PeasObjectModule *module)
 {
         native_applet_register_type(G_TYPE_MODULE(module));
+        native_panel_applet_init_gtype(G_TYPE_MODULE(module));
 
         peas_object_module_register_extension_type(module,
                                                    BUDGIE_TYPE_PLUGIN,
