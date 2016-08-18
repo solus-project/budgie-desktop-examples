@@ -10,4 +10,4 @@ TODO
 
  - [x] Add Python example
  - [x] Add Vala example
- - [ ] Add C example
+ - [x] Add C example
