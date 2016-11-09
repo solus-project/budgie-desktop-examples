@@ -7,10 +7,10 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *  
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
@@ -25,7 +25,7 @@
 #include <budgie-desktop/plugin.h>
 #include <gobject/gobject.h>
 
-#define __budgie_unused__ __attribute__ ((unused))
+#define __budgie_unused__ __attribute__((unused))
 
 G_BEGIN_DECLS
 
@@ -39,4 +39,3 @@ void native_panel_applet_init_gtype(GTypeModule *module);
 BudgieApplet *native_panel_applet_new(void);
 
 G_END_DECLS
-

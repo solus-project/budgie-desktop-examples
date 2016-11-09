@@ -7,10 +7,10 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *  
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
@@ -30,7 +30,7 @@ G_BEGIN_DECLS
 /**
  * Define our type, which is a BudgieApplet extension
  */
-#define NATIVE_TYPE_PANEL_APPLET native_panel_applet_get_type ()
+#define NATIVE_TYPE_PANEL_APPLET native_panel_applet_get_type()
 G_DECLARE_FINAL_TYPE(NativePanelApplet, native_panel_applet, NATIVE, PANEL_APPLET, BudgieApplet)
 
 G_END_DECLS
@@ -46,8 +46,7 @@ BudgieApplet *native_panel_applet_new(void)
 /**
  * Simple instance tracking
  */
-struct _NativePanelApplet
-{
+struct _NativePanelApplet {
         BudgieApplet parent;
 };
 
