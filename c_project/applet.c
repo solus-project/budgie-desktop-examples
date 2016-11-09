@@ -20,40 +20,42 @@
  * THE SOFTWARE.
  */
 
-#include <budgie-desktop/plugin.h>
-#include <gobject/gobject.h>
+#define _GNU_SOURCE
 
-#include "NativeApplet.h"
+#include "applet.h"
 
-G_BEGIN_DECLS
-
-/**
- * Define our type, which is a BudgieApplet extension
- */
-#define NATIVE_TYPE_PANEL_APPLET native_panel_applet_get_type()
-G_DECLARE_FINAL_TYPE(NativePanelApplet, native_panel_applet, NATIVE, PANEL_APPLET, BudgieApplet)
-
-G_END_DECLS
+G_DEFINE_DYNAMIC_TYPE_EXTENDED(ExampleNativeApplet, example_native_applet, BUDGIE_TYPE_APPLET, 0, )
 
 /**
- * Pass properties here too if you wish
+ * Handle cleanup
  */
-BudgieApplet *native_panel_applet_new(void)
+static void example_native_applet_dispose(GObject *object)
 {
-        return BUDGIE_APPLET(g_object_new(NATIVE_TYPE_PANEL_APPLET, NULL));
+        G_OBJECT_CLASS(example_native_applet_parent_class)->dispose(object);
 }
 
 /**
- * Simple instance tracking
+ * Class initialisation
  */
-struct _NativePanelApplet {
-        BudgieApplet parent;
-};
+static void example_native_applet_class_init(ExampleNativeAppletClass *klazz)
+{
+        GObjectClass *obj_class = G_OBJECT_CLASS(klazz);
+
+        /* gobject vtable hookup */
+        obj_class->dispose = example_native_applet_dispose;
+}
 
 /**
- * Initialise this applet instance. For now just throw on a label :)
+ * We have no cleaning ourselves to do
  */
-static void native_panel_applet_init(NativePanelApplet *self)
+static void example_native_applet_class_finalize(__budgie_unused__ ExampleNativeAppletClass *klazz)
+{
+}
+
+/**
+ * Initialisation of basic UI layout and such
+ */
+static void example_native_applet_init(ExampleNativeApplet *self)
 {
         GtkWidget *label = NULL;
 
@@ -64,28 +66,25 @@ static void native_panel_applet_init(NativePanelApplet *self)
         gtk_widget_show_all(GTK_WIDGET(self));
 }
 
-/**
- * Unused in our implementation. Feel free to override class methods of
- * BudgieApplet here.
- */
-static void native_panel_applet_class_init(__budgie_unused__ NativePanelAppletClass *cls)
+void example_native_applet_init_gtype(GTypeModule *module)
 {
+        example_native_applet_register_type(module);
 }
 
-static void native_panel_applet_class_finalize(__budgie_unused__ NativePanelAppletClass *cls)
+BudgieApplet *example_native_applet_new(void)
 {
+        return g_object_new(EXAMPLE_TYPE_NATIVE_APPLET, NULL);
 }
 
-/**
- * This is us now doing the implementation chain ups..
+/*
+ * Editor modelines  -  https://www.wireshark.org/tools/modelines.html
+ *
+ * Local variables:
+ * c-basic-offset: 8
+ * tab-width: 8
+ * indent-tabs-mode: nil
+ * End:
+ *
+ * vi: set shiftwidth=8 tabstop=8 expandtab:
+ * :indentSize=8:tabSize=8:noTabs=true:
  */
-
-G_DEFINE_DYNAMIC_TYPE_EXTENDED(NativePanelApplet, native_panel_applet, BUDGIE_TYPE_APPLET, 0, )
-
-/**
- * Work around the register types issue.
- */
-void native_panel_applet_init_gtype(GTypeModule *module)
-{
-        native_panel_applet_register_type(module);
-}

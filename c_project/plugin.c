@@ -24,8 +24,7 @@
 
 #include <budgie-desktop/plugin.h>
 
-/* FIX THIS */
-#include "NativeApplet.h"
+#include "applet.h"
 #include "plugin.h"
 
 static void example_native_plugin_iface_init(BudgiePluginIface *iface);
@@ -40,8 +39,8 @@ G_DEFINE_DYNAMIC_TYPE_EXTENDED(ExampleNativePlugin, example_native_plugin, G_TYP
 static BudgieApplet *native_applet_get_panel_widget(__budgie_unused__ BudgiePlugin *self,
                                                     __budgie_unused__ gchar *uuid)
 {
-        /* TODO: Propogate the UUID to the applet */
-        return native_panel_applet_new();
+        /* TODO: Propagate the UUID to the applet */
+        return example_native_applet_new();
 }
 
 /**
@@ -93,7 +92,7 @@ G_MODULE_EXPORT void peas_register_types(PeasObjectModule *module)
         example_native_plugin_register_type(G_TYPE_MODULE(module));
 
         /* Register the actual dynamic types contained in the resulting plugin */
-        native_panel_applet_init_gtype(G_TYPE_MODULE(module));
+        example_native_applet_init_gtype(G_TYPE_MODULE(module));
 
         peas_object_module_register_extension_type(module,
                                                    BUDGIE_TYPE_PLUGIN,
