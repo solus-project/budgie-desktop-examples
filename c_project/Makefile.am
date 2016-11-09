@@ -8,7 +8,8 @@ nativeapplet_LTLIBRARIES = \
 	libnativeexampleapplet.la
 
 libnativeexampleapplet_la_SOURCES = \
-	NativeApplet.c \
+	plugin.h \
+	plugin.c \
 	NativeApplet.h \
 	NativePanelApplet.c
 
